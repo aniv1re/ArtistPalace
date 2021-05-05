@@ -1,0 +1,25 @@
+﻿@model List<Artist>
+
+
+<h1>Artists!!!!</h1>
+
+<form method="get">
+    <label for="search">Search Name:</label>
+    <input id="search" name="nickName" type="text">
+    <label for="type">Search Type:</label>
+    <input id="type" name="type" type="text">
+    <button>Search!</button>
+</form>
+
+<table>
+    @foreach (var artist in Model)
+    {
+        <tr>
+            <td>@artist.Nickname</td>
+            <td>@artist.Country</td>
+            <td>@artist.Type</td>
+            <td>@artist.AcceptCommissions</td>
+            <td>@artist.PricePerHour</td>
+        </tr>
+    }
+</table>
