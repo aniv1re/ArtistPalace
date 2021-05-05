@@ -1,0 +1,95 @@
+:root {
+    --bg0: #202225;
+    --bg1: #292b2f;
+    --text0: #FFFFFF;
+    --foreground: #39b96d;
+    font-size: 16px;
+    --font: 'Montserrat', sans-serif;
+}
+
+th {
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+td {
+    padding: 3px;
+}
+
+.center-this {
+    text-align: center;
+}
+
+.commission-container {
+    padding-left: 8px;
+}
+
+.artist-avatar {
+    width: 25px;
+    height: 25px;
+    transition: all 0.2s ease;
+    border-radius: 15px;
+}
+
+.artist-avatar:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 3px var(--foreground);
+}
+
+
+.fill-th {
+    min-width: 100px;
+    background-color: var(--bg1);
+    border: 3px solid var(--bg1);
+    border-radius: 3px;
+}
+
+.fill-th-small {
+    padding-left: 4px;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--bg1);
+    text-align: center;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -12px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--bg1) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

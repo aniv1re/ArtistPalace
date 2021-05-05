@@ -1,66 +1,120 @@
 ﻿@model List<Artist>
 
-<h1>Artists</h1>
+<link rel="stylesheet" href="~/table.css" />
+<link rel="stylesheet" href="~/index.css" />
+<link rel="stylesheet" href="~/flag-icon.css" />
+<link rel="stylesheet" href="~/flag-icon.min.css" />
 
-<form method="get">
-    <label for="search-by-nickname">Artist:</label>
-    <input id="search-by-nickname" name="nickName" type="text" placeholder="nickname or @@tag">
-    
-    <label for="search-by-type">Type:</label>
-    <select id="search-by-type" name="type">
-        <option>All</option>
-        <option>Pixel Art</option>
-        <option>Digital Art</option>
-    </select>
-    
-    <label for="search-by-country">Country:</label>
-    <select id="search-by-country" name="country">
-        <option>All</option>
-        <option>Russia</option>
-    </select>
-    
-    <label for="search-by-rank">Rank:</label>
-    <select id="search-by-rank" name="rank">
-        <option>All</option>
-        <option>C</option>
-        <option>B</option>
-        <option>A</option>
-        <option>S</option>
-    </select>
-    <button>Help button</button>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <label for="search-by-commissions">Commissions status:</label>
-    <select id="search-by-commissions" name="commissions">
-        <option>All</option>
-        <option>Yes</option>
-        <option>No</option>
-    </select>
-    
-    <button>Search</button>
-    <button>Reset</button>
-</form>
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<script src="~/index.js" asp-append-version="true"></script>
 
-<table>
-    <tr>
-        <th>Artist</th>
-        <th>Tag</th>
-        <th>Rank</th>
-        <th>Followers</th>
-        <th>Type</th>
-        <th>Country</th>
-    </tr>
-    @foreach (var artist in Model)
-    {
+<div id="navbar">
+    <button id="search-button" onclick="openSearch()"><span class="material-icons">person_search</span> Найти художника</button>
+    <button id="add-artist-button" onclick="openAddArtist()"><span class="material-icons">person_add</span> Предложить художника</button>
+</div>
+
+<div id="add-container" class="hidden">
+    
+</div>
+
+<div id="search-container" class="hidden">
+    <form method="get">
+        <div class="group">
+            <label for="search-by-nickname">Artist:</label>
+            <input id="search-by-nickname" name="nickName" type="text" placeholder="nickname or @@tag">
+        </div>
+    
+        <div class="group">
+            <label for="search-by-type">Type:</label>
+            <select id="search-by-type" name="type">
+                <option>All</option>
+                <option>Pixel Art</option>
+                <option>Digital Art</option>
+            </select>
+        </div>
+    
+        <div class="group">
+            <label for="search-by-country">Country:</label>
+            <select id="search-by-country" name="country">
+                <option>All</option>
+                <option>Russia</option>
+            </select>
+        </div>
+    
+        <div class="group">
+            <label for="search-by-rank">Rank:</label>
+            <select id="search-by-rank" name="rank">
+                <option>All</option>
+                <option>C</option>
+                <option>B</option>
+                <option>A</option>
+                <option>S</option>
+            </select>
+        </div>
+    
+        <div class="group">
+            <label for="search-by-commissions">Commissions status:</label>
+            <select id="search-by-commissions" name="commissions">
+                <option>All</option>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+    
+        <button>Search</button>
+        <button>Reset</button>
+    </form>
+</div>
+
+
+<div id="artists-table-container">
+    <table class="table sortable">
         <tr>
-            <td>@artist.AcceptCommissions</td>
-            <td>@artist.PricePerHour</td>
-            <td><img src="https://avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></td>
-            <td>@artist.Nickname</td>
-            <td>@artist.TwitterTag</td>
-            <td>@artist.Rank</td>
-            <td>@artist.FollowersCount</td>
-            <td>@artist.Type</td>
-            <td>@artist.Country</td>
+            <th class="fill-th-small"><span class="material-icons">payments</span></th>
+            <th class="fill-th-small"><span class="material-icons">account_box</span></th>
+            <th class="fill-th">Artist</th>
+            <th class="fill-th">Tag</th>
+            <th class="fill-th">Rank</th>
+            <th class="fill-th">Followers</th>
+            <th class="fill-th">Type</th>
+            <th class="fill-th">Country</th>
         </tr>
-    }
-</table>
+        @foreach (var artist in Model)
+        {
+            <tr>
+                <td id="commission-container">
+                    @if (@artist.AcceptCommissions == true)
+                    {
+                        <div class="tooltip">
+                            <span class="material-icons" href="@artist.CommissionsLink">attach_money</span>
+                            @if (@artist.PricePerHour == null)
+                            {
+                                <span class="tooltiptext">Принимает заказы<br></span>
+                            }
+                            else
+                            {
+                                <span class="tooltiptext">Принимает заказы <br>$ @artist.PricePerHour / hour</span>
+                            }
+                        </div>
+                    }
+                </td>
+                <td><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></td>
+                <td>@artist.Nickname</td>
+                <td>@artist.TwitterTag</td>
+                <td class="center-this">@artist.Rank</td>
+                <td class="center-this">@artist.FollowersCount</td>
+                <td class="center-this">@artist.Type</td>
+                @if (artist.Country == "Russia")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-ru"></span>@artist.Country</td>
+                }
+                else
+                {
+                    <td class="center-this">@artist.Country</td>
+                }
+            </tr>
+        }
+    </table>
+</div>
