@@ -37,7 +37,7 @@ namespace ArtistPalace.Controllers
                 
                 if (!string.IsNullOrWhiteSpace(artistsQuery?.Type))
                 {
-                    builder.Where("Type = @type", new {type = artistsQuery.Type});
+                    builder.Where($"Type = '{artistsQuery.Type}'");
                 }
 
                 Console.WriteLine(template.RawSql.ToString());

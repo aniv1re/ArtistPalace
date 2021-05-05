@@ -1,25 +1,43 @@
 ﻿@model List<Artist>
 
 
-<h1>Artists!!!!</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Artists</h1>
 
 <form method="get">
-    <label for="search">Search Name:</label>
-    <input id="search" name="nickName" type="text">
-    <label for="type">Search Type:</label>
-    <input id="type" name="type" type="text">
-    <button>Search!</button>
+    <label for="search-by-nickname">Search Name:</label>
+    <input id="search-by-nickname" name="nickName" type="text">
+    
+    <label for="search-by-type">Search Type:</label>
+    <select id="search-by-type" name="type">
+        <option>Pixel Art</option>
+        <option>Digital Art</option>
+    </select>
+
+    <button>Search</button>
+    <button>Reset</button>
 </form>
 
 <table>
+    <tr>
+        <th>Artist</th>
+        <th>Tag</th>
+        <th>Rank</th>
+        <th>Followers</th>
+        <th>Type</th>
+        <th>Country</th>
+    </tr>
     @foreach (var artist in Model)
     {
         <tr>
-            <td>@artist.Nickname</td>
-            <td>@artist.Country</td>
-            <td>@artist.Type</td>
             <td>@artist.AcceptCommissions</td>
             <td>@artist.PricePerHour</td>
+            <td><img src="https://avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></td>
+            <td>@artist.Nickname</td>
+            <td>@artist.TwitterTag</td>
+            <td>@artist.Rank</td>
+            <td>@artist.FollowersCount</td>
+            <td>@artist.Type</td>
+            <td>@artist.Country</td>
         </tr>
     }
 </table>
