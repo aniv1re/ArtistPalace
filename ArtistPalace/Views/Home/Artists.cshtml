@@ -1,18 +1,41 @@
 ﻿@model List<Artist>
 
-
-<h1 xmlns="http://www.w3.org/1999/html">Artists</h1>
+<h1>Artists</h1>
 
 <form method="get">
-    <label for="search-by-nickname">Search Name:</label>
-    <input id="search-by-nickname" name="nickName" type="text">
+    <label for="search-by-nickname">Artist:</label>
+    <input id="search-by-nickname" name="nickName" type="text" placeholder="nickname or @@tag">
     
-    <label for="search-by-type">Search Type:</label>
+    <label for="search-by-type">Type:</label>
     <select id="search-by-type" name="type">
+        <option>All</option>
         <option>Pixel Art</option>
         <option>Digital Art</option>
     </select>
+    
+    <label for="search-by-country">Country:</label>
+    <select id="search-by-country" name="country">
+        <option>All</option>
+        <option>Russia</option>
+    </select>
+    
+    <label for="search-by-rank">Rank:</label>
+    <select id="search-by-rank" name="rank">
+        <option>All</option>
+        <option>C</option>
+        <option>B</option>
+        <option>A</option>
+        <option>S</option>
+    </select>
+    <button>Help button</button>
 
+    <label for="search-by-commissions">Commissions status:</label>
+    <select id="search-by-commissions" name="commissions">
+        <option>All</option>
+        <option>Yes</option>
+        <option>No</option>
+    </select>
+    
     <button>Search</button>
     <button>Reset</button>
 </form>

@@ -35,15 +35,35 @@ namespace ArtistPalace.Controllers
                     builder.Where($"Nickname Like '%{artistsQuery.NickName}%'");
                 }
                 
-                if (!string.IsNullOrWhiteSpace(artistsQuery?.Type))
+                if (!string.IsNullOrWhiteSpace(artistsQuery?.Country) && artistsQuery?.Country != "All")
+                {
+                    builder.Where($"Country = '{artistsQuery.Country}'");
+                }
+                
+                if (!string.IsNullOrWhiteSpace(artistsQuery?.Type) && artistsQuery?.Type != "All")
                 {
                     builder.Where($"Type = '{artistsQuery.Type}'");
+                }
+                
+                if (!string.IsNullOrWhiteSpace(artistsQuery?.Rank) && artistsQuery?.Rank != "All")
+                {
+                    builder.Where($"Rank = '{artistsQuery.Rank}'");
+                }
+                
+                if (!string.IsNullOrWhiteSpace(artistsQuery?.Commissions) && artistsQuery?.Commissions != "All")
+                {
+                    builder.Where($"AcceptCommissions = '{(artistsQuery.Commissions == "Yes" ? true : false)}'");
                 }
 
                 Console.WriteLine(template.RawSql.ToString());
                 var artists = connection.Query<Artist>(template.RawSql.ToString()).ToList();
                 return View(artists);
             }
+        }
+        
+        public IActionResult AdminPanel()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

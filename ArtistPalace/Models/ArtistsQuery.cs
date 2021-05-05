@@ -4,5 +4,8 @@
     {
         public string NickName { get; set; }
         public string Type { get; set; }
+        public string Rank { get; set; }
+        public string Commissions { get; set; }
+        public string Country { get; set; }
     }
 }
