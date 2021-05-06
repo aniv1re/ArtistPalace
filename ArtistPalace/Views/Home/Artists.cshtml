@@ -11,15 +11,11 @@
 <script src="~/index.js" asp-append-version="true"></script>
 
 <div id="navbar">
-    <button id="search-button" onclick="openSearch()"><span class="material-icons">person_search</span> Найти художника</button>
-    <button id="add-artist-button" onclick="openAddArtist()"><span class="material-icons">person_add</span> Предложить художника</button>
+    <button id="search-button"><span class="material-icons">person_search</span> Search Artist</button>
+    <a href="/home/suggestartists"><button id="add-artist-button"><span class="material-icons">person_add</span> Suggest Artist</button></a>
 </div>
 
-<div id="add-container" class="hidden">
-    
-</div>
-
-<div id="search-container" class="hidden">
+<div id="search-container">
     <form method="get">
         <div class="group">
             <label for="search-by-nickname">Artist:</label>
@@ -62,9 +58,10 @@
                 <option>No</option>
             </select>
         </div>
-    
-        <button>Search</button>
-        <button>Reset</button>
+        
+        <div class="group">
+            <button id="flat-button">Search</button>
+        </div>
     </form>
 </div>
 
@@ -100,7 +97,7 @@
                         </div>
                     }
                 </td>
-                <td><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></td>
+                <td><a href="@artist.TwitterLink"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
                 <td>@artist.Nickname</td>
                 <td>@artist.TwitterTag</td>
                 <td class="center-this">@artist.Rank</td>

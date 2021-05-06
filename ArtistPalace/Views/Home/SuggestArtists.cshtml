@@ -1,0 +1,53 @@
+﻿<link rel="stylesheet" href="~/table.css" />
+<link rel="stylesheet" href="~/index.css" />
+<link rel="stylesheet" href="~/flag-icon.css" />
+<link rel="stylesheet" href="~/flag-icon.min.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<script src="~/index.js" asp-append-version="true"></script>
+
+<div id="navbar">
+    <a href="/home/artists"><button id="search-button" onclick="openSearch()"><span class="material-icons">person_search</span> Search Artist</button></a>
+    <button id="add-artist-button" onclick="openAddArtist()"><span class="material-icons">person_add</span> Suggest Artist</button>
+</div>
+
+<div class="center-this-div">
+    <form method="get">
+        <div id="suggest-container">
+            
+            <div class="group">
+                <h1>Suggest Artist</h1>
+            </div>
+
+            <div class="group">
+                <label for="add-artist-page">Twitter artist page</label> <br/>
+                <input id="add-artist-page" placeholder="twitter-link">
+            </div>
+
+            <div class="group">
+                <label for="add-artist-nickname">Artist nickname</label> <br/>
+                <input id="add-artist-nickname">
+            </div>
+
+            <div class="group">
+                <label for="add-artist-tag">Twitter @@tag</label> <br/>
+                <input id="add-artist-tag">
+            </div>
+
+            <div class="group">
+                <label for="add-artist-commission-agree">Commission status</label> <br/>
+                <select id="add-artist-commission-agree">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+
+            <div class="group-button">
+                <br>
+                <button id="flat-button">Suggest</button>
+            </div>
+        </div>
+    </form>
+</div>
