@@ -11,7 +11,6 @@
         public string Rank { get; set; }
         public string Type { get; set; }
         public bool? AcceptCommissions { get; set; }
-        public string CommissionsLink { get; set; }
         public int? PricePerHour { get; set; }
     }
 }

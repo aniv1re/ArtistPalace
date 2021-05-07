@@ -85,22 +85,37 @@
                     @if (@artist.AcceptCommissions == true)
                     {
                         <div class="tooltip">
-                            <span class="material-icons" href="@artist.CommissionsLink">attach_money</span>
+                            <a href="@artist.TwitterLink"><span class="material-icons" >attach_money</span></a>
                             @if (@artist.PricePerHour == null)
                             {
-                                <span class="tooltiptext">Принимает заказы<br></span>
+                                <span class="tooltiptext">Accept commissions<br></span>
                             }
                             else
                             {
-                                <span class="tooltiptext">Принимает заказы <br>$ @artist.PricePerHour / hour</span>
+                                <span class="tooltiptext">Accept commissions<br>$ @artist.PricePerHour / hour</span>
                             }
                         </div>
                     }
                 </td>
                 <td><a href="@artist.TwitterLink"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
                 <td>@artist.Nickname</td>
-                <td>@artist.TwitterTag</td>
-                <td class="center-this">@artist.Rank</td>
+                <td>@@@artist.TwitterTag</td>
+                <td class="center-this"> @if (@artist.Rank == "C")
+                                         {
+                                             <span style="color: #845EC2; font-weight: bold;">@artist.Rank</span>
+                                         }
+                                         else if (@artist.Rank == "B")
+                                         {
+                                             <span style="color: #FF6F91; font-weight: bold;">@artist.Rank</span>
+                                         }
+                                         else if (@artist.Rank == "A")
+                                         {
+                                             <span style="color: #FF9671; font-weight: bold;">@artist.Rank</span>
+                                         }
+                                         else if (@artist.Rank == "S")
+                                         {
+                                             <span style="color : #FFC75F; font-weight: bold;">@artist.Rank</span>
+                                         }</td>
                 <td class="center-this">@artist.FollowersCount</td>
                 <td class="center-this">@artist.Type</td>
                 @if (artist.Country == "Russia")

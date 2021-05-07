@@ -23,6 +23,11 @@ namespace ArtistPalace.Controllers
             return View("Index");
         }
 
+        public IActionResult SuggestArtists([FromQuery] SuggestArtistsQuery suggestArtistsQuery = null)
+        {
+            return View();
+        }
+        
         public IActionResult Artists([FromQuery] ArtistsQuery artistsQuery = null)
         {
             using (var connection = _connection.CreateConnection())
@@ -55,18 +60,15 @@ namespace ArtistPalace.Controllers
                     builder.Where($"AcceptCommissions = '{(artistsQuery.Commissions == "Yes" ? true : false)}'");
                 }
 
+                // debug
                 Console.WriteLine(template.RawSql.ToString());
+                
                 var artists = connection.Query<Artist>(template.RawSql.ToString()).ToList();
                 return View(artists);
             }
         }
         
         public IActionResult AdminPanel()
-        {
-            return View();
-        }
-        
-        public IActionResult SuggestArtists()
         {
             return View();
         }

@@ -22,26 +22,29 @@
             </div>
 
             <div class="group">
-                <label for="add-artist-page">Twitter artist page</label> <br/>
-                <input id="add-artist-page" placeholder="twitter-link">
-            </div>
-
-            <div class="group">
-                <label for="add-artist-nickname">Artist nickname</label> <br/>
-                <input id="add-artist-nickname">
-            </div>
-
-            <div class="group">
                 <label for="add-artist-tag">Twitter @@tag</label> <br/>
-                <input id="add-artist-tag">
+                <input id="add-artist-tag" name="tag" required>
+            </div>
+            
+             <div class="group">
+                <label for="add-artist-type">Type:</label> <br/>
+                <select id="add-artist-type" name="type" required style="width: 211px">
+                    <option>Pixel Art</option>
+                    <option>Digital Art</option>
+                </select>
             </div>
 
             <div class="group">
-                <label for="add-artist-commission-agree">Commission status</label> <br/>
-                <select id="add-artist-commission-agree">
+                <label for="add-artist-commission-accept">Accept commissions</label> <br/>
+                <select id="add-artist-commission-accept" style="width: 211px" name="commissions">
                     <option>Yes</option>
                     <option>No</option>
                 </select>
+            </div>
+            
+            <div class="group">
+                <label for="add-artist-priceperhour">Price per hour</label> <br/>
+                <input id="add-artist-priceperhour" name="priceperhour" placeholder="leave empty if DM" pattern="^[ 0-9]+$">
             </div>
 
             <div class="group-button">
