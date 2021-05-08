@@ -1,20 +1,14 @@
-﻿<link rel="stylesheet" href="~/table.css" />
-<link rel="stylesheet" href="~/index.css" />
-<link rel="stylesheet" href="~/flag-icon.css" />
-<link rel="stylesheet" href="~/flag-icon.min.css" />
+﻿<link rel="stylesheet" href="~/index.css" />
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-<script src="~/index.js" asp-append-version="true"></script>
-
 <div id="navbar">
-    <a href="/home/artists"><button id="search-button" onclick="openSearch()"><span class="material-icons">person_search</span> Search Artist</button></a>
-    <button id="add-artist-button" onclick="openAddArtist()"><span class="material-icons">person_add</span> Suggest Artist</button>
+    <a href="/home/artists"><button id="search-button"><span class="material-icons">person_search</span> Search Artist</button></a>
+    <button id="add-artist-button"><span class="material-icons">person_add</span> Suggest Artist</button>
 </div>
 
 <div class="center-this-div">
-    <form method="get">
+    <form method="post" asp-action="Artists" >
         <div id="suggest-container">
             
             <div class="group">
