@@ -1,8 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById('load-content#byTypeAll').click();
-});
-
-function openSearch() {
+﻿/*function openSearch() {
 	if (document.getElementById("search-container").classList.contains("hidden") === false) {
 		document.getElementById("search-container").classList.add("hidden");
 		document.getElementById("search-container").classList.remove("show");
@@ -22,7 +18,7 @@ function openAddArtist() {
 		document.getElementById("add-container").classList.remove("hidden");
 		document.getElementById("add-container").classList.add("show");
 	}
-}
+}*/
 
 // help overlay
 function onOverlay() {
