@@ -1,17 +1,39 @@
 ﻿@model ArtistPalace.ViewModels.LoginViewModel
 
-<form method="post">
-    <h1>Login</h1>
+<link rel="stylesheet" href="~/index.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <div>
-        <label for="email">Email:</label>
-        <input id="email" type="text" asp-for="Email">
-    </div>
+<div id="navbar">
+    <a href="/home/index"><button id="add-artist-button"><span class="material-icons">arrow_back</span> Home</button></a>
+    <a href="/home/artists"><button id="add-artist-button"><span class="material-icons">people</span> Artists List</button></a>
+</div>
 
-    <div>
-        <label for="pass">Password:</label>
-        <input id="pass" type="password" asp-for="Password">
-    </div>
-    
-    <button>Login</button>
-</form>
+<div class="center-this-div">
+    <form method="post">
+        <div id="suggest-container">
+            <div class="group">
+                <h1>Login</h1>
+            </div>
+
+             <div class="group">
+                <div>
+                    <label for="email">Email:</label> <br/>
+                    <input id="email" type="text" asp-for="Email" required>
+                </div>
+            </div>
+            
+            <div class="group">
+                <div>
+                    <label for="pass">Password:</label> <br/>
+                    <input id="pass" type="password" asp-for="Password" required>
+                </div>
+            </div>
+            <br/>
+            <div class="group">
+                <button class="flat-button">Login</button>
+            </div>
+        </div>
+    </form>
+</div>

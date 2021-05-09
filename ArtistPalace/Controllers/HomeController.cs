@@ -104,7 +104,7 @@ namespace ArtistPalace.Controllers
             }
         }
         
-        public IActionResult Register()
+        /*public IActionResult Register()
         {
             return View();
         }
@@ -123,7 +123,7 @@ namespace ArtistPalace.Controllers
             }
 
             return View();
-        }
+        }*/
 
         public IActionResult Login()
         {
@@ -142,12 +142,12 @@ namespace ArtistPalace.Controllers
                 
                 if (user == null)
                 {
-                    return BadRequest();
+                    return View();
                 }
 
                 if (HashPassword(viewModel.Password) != user.PasswordHash)
                 {
-                    return BadRequest();
+                    return View();
                 }
 
                 var claims = new List<Claim>

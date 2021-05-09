@@ -12,6 +12,7 @@
 <script src="~/index.js" asp-append-version="true"></script>
 
 <div id="navbar">
+    <a href="/home/index"><button id="add-artist-button"><span class="material-icons">arrow_back</span> Home</button></a>
     <button id="search-button"><span class="material-icons">person_search</span> Search Artist</button>
     <a href="/home/suggestartists"><button id="add-artist-button"><span class="material-icons">person_add</span> Suggest Artist</button></a>
 </div>
@@ -130,4 +131,10 @@
             </tr>
         }
     </table>
+</div>
+
+<div id="footer">
+    <div class="footer-info">
+        <p>List is updated every week.<br>Artists in the list: <strong>@Model.Count</strong></p>
+    </div>
 </div>
