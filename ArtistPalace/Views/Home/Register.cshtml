@@ -1,0 +1,18 @@
+﻿@model ArtistPalace.ViewModels.RegisterViewModel
+
+
+<form method="post">
+    <h1>Register</h1>
+
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" type="text" asp-for="Email">
+    </div>
+
+    <div>
+        <label for="pass">Password:</label>
+        <input id="pass" type="password" asp-for="Password">
+    </div>
+    
+    <button>Register</button>
+</form>
