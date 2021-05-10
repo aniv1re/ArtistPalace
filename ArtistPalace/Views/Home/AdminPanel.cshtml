@@ -1,5 +1,6 @@
 @model List<SuggestArtists>
 @using Microsoft.AspNetCore.Http
+@using ArtistPalace.TwitterApi
 @inject IHttpContextAccessor ContextAccessor
 
 <link rel="stylesheet" href="~/table.css" />
@@ -35,7 +36,8 @@
         @foreach (var artist in Model)
         {
             <tr>
-                <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
+                @*<td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>*@
+                <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="@TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>
                 <td>@@@artist.TwitterTag</td>
                 <td class="center-this">@artist.Type</td>
                 @if (artist.AcceptCommissions == true)

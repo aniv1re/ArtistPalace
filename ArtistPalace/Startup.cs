@@ -15,6 +15,7 @@ namespace ArtistPalace
         
         public Startup(IConfiguration configuration)
         {
+            TwitterApi.TwitterHandler.SetConnection();
             Configuration = configuration;
         }
 

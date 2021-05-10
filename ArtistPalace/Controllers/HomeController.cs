@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtistPalace.Data;
@@ -12,12 +8,9 @@ using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using ArtistPalace.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -52,16 +45,17 @@ namespace ArtistPalace.Controllers
             using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Execute(
-                    "exec AddToCheckoutArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted",
+                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted",
                     new
                     {
                         twitterTag = suggestArtistsQuery.Tag,
                         type = suggestArtistsQuery.Type,
-                        acceptCommissions = suggestArtistsQuery.AcceptCommissions,
+                        acceptCommissions = suggestArtistsQuery.AcceptCommissions == "No" ? false : true,
                         pricePerHour = suggestArtistsQuery.PricePerHour,
                         isAccepted = false
                     });
             }
+
             return View();
         }
 
@@ -96,14 +90,14 @@ namespace ArtistPalace.Controllers
                 {
                     builder.Where($"AcceptCommissions = '{(artistsQuery.Commissions == "Yes" ? true : false)}'");
                 }
-                
+
                 _logger.Log(LogLevel.Information, template.RawSql.ToString());
 
                 var artists = connection.Query<Artist>(template.RawSql.ToString()).ToList();
                 return View(artists);
             }
         }
-        
+
         /*public IActionResult Register()
         {
             return View();
@@ -139,7 +133,7 @@ namespace ArtistPalace.Controllers
                 {
                     email = viewModel.Email
                 });
-                
+
                 if (user == null)
                 {
                     return View();
@@ -154,16 +148,17 @@ namespace ArtistPalace.Controllers
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email)
                 };
-                
+
                 var identity = new ClaimsIdentity(claims, "ApplicationCookie",
                     ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(identity));
             }
 
             return View("Index");
         }
-        
+
         [Authorize]
         public IActionResult AdminPanel()
         {
@@ -179,7 +174,7 @@ namespace ArtistPalace.Controllers
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
-        
+
         private string HashPassword(string password)
         {
             var sha = SHA256.Create();

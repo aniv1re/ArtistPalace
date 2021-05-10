@@ -2,7 +2,7 @@ use ArtistPalace;
 
 
 go
-create procedure AddToCheckoutArtists(@twitterTag varchar(150),
+create procedure AddToSuggestArtists(@twitterTag varchar(150),
 									  @type varchar(150),
 									  @acceptCommissions bit,
 									  @pricePerHour int,
