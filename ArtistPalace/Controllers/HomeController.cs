@@ -98,6 +98,24 @@ namespace ArtistPalace.Controllers
             }
         }
 
+        [Authorize]
+        public IActionResult AdminPanel()
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                var suggestArtists = connection.Query<SuggestArtists>("select * from SuggestArtists").ToList();
+                return View(suggestArtists);
+            }
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        }
+        
+        // auth
+        
         /*public IActionResult Register()
         {
             return View();
@@ -118,7 +136,7 @@ namespace ArtistPalace.Controllers
 
             return View();
         }*/
-
+        
         public IActionResult Login()
         {
             return View();
@@ -158,23 +176,7 @@ namespace ArtistPalace.Controllers
 
             return View("Index");
         }
-
-        [Authorize]
-        public IActionResult AdminPanel()
-        {
-            using (var connection = _connectionFactory.CreateConnection())
-            {
-                var suggestArtists = connection.Query<SuggestArtists>("select * from SuggestArtists").ToList();
-                return View(suggestArtists);
-            }
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
-        }
-
+        
         private string HashPassword(string password)
         {
             var sha = SHA256.Create();

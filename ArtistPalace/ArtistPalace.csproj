@@ -48,6 +48,7 @@
       <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
       <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
       <PackageReference Include="TweetinviAPI" Version="5.0.4" />
+      <PackageReference Include="TweetinviAPI.WebhooksPlugin" Version="4.0.0" />
     </ItemGroup>
 
 </Project>

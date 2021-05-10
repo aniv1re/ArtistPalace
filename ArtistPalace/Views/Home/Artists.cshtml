@@ -88,7 +88,7 @@
                     @if (@artist.AcceptCommissions == true)
                     {
                         <div class="tooltip">
-                            <a href="@artist.TwitterLink"><span class="material-icons" >attach_money</span></a>
+                            <a href="@artist.TwitterLink"><span class="material-icons" style="padding-right: 0px; padding-left: 2px">attach_money</span></a>
                             @if (@artist.PricePerHour == null)
                             {
                                 <span class="tooltiptext">Accept commissions<br></span>
@@ -100,8 +100,8 @@
                         </div>
                     }
                 </td>
-                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>*@
-                <td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>
+                <td><a href="@artist.TwitterLink"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
+                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
                 <td>@artist.Nickname</td>
                 <td>@@@artist.TwitterTag</td>
                 <td class="center-this"> @if (@artist.Rank == "C")
@@ -135,8 +135,8 @@
     </table>
 </div>
 
-<div id="footer">
+@*<div id="footer">
     <div class="footer-info">
-        <p>List is updated every week.<br>Artists in the list: <strong>@Model.Count</strong></p>
+        <p>Suggestions, incorrect information about artist and other: anivire.work@gmail.com<br>List is updated every week.</p>
     </div>
-</div>
+</div>*@
