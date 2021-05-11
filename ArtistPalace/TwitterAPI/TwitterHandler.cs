@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using ArtistPalace.Models;
+using ArtistPalace.ViewModels;
 using Tweetinvi;
 
 namespace ArtistPalace.TwitterApi
@@ -26,6 +29,21 @@ namespace ArtistPalace.TwitterApi
         {
             var artist = await UserClient.Users.GetUserAsync(tag);
             return artist.ProfileImageUrl;
+        }
+
+        public static async Task<Artist> GetInfo(string tag)
+        {
+            var user = await UserClient.Users.GetUserAsync(tag);
+
+            Artist newArtist = new Artist()
+            {
+                Nickname = user.ScreenName,
+                TwitterTag = user.Name,
+                FollowersCount = user.FollowersCount,
+                Country = user.Location
+            };
+
+            return newArtist;
         }
     }
 }

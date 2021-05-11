@@ -101,7 +101,7 @@
                     }
                 </td>
                 <td><a href="@artist.TwitterLink"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
-                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
+                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
                 <td>@artist.Nickname</td>
                 <td>@@@artist.TwitterTag</td>
                 <td class="center-this"> @if (@artist.Rank == "C")

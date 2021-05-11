@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using ArtistPalace.TwitterApi;
 using ArtistPalace.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,7 +31,11 @@ namespace ArtistPalace.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                var suggestArtists = connection.Query<SuggestArtists>("select top 5 * from SuggestArtists order by Id desc ").ToList();
+                return View(suggestArtists);
+            }
         }
 
         [HttpGet]
@@ -93,7 +98,8 @@ namespace ArtistPalace.Controllers
 
                 _logger.Log(LogLevel.Information, template.RawSql.ToString());
 
-                var artists = connection.Query<Artist>(template.RawSql.ToString()).ToList();
+                var artists = connection.Query<Artist>(template.RawSql.ToString() + "order by FollowersCount desc").ToList();
+
                 return View(artists);
             }
         }

@@ -1,22 +1,65 @@
 ﻿<link rel="stylesheet" href="~/index.css" />
+<link rel="stylesheet" href="~/table.css" />
+<link rel="stylesheet" href="~/flag-icon.css" />
+<link rel="stylesheet" href="~/flag-icon.min.css" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<script src="~/index.js" asp-append-version="true"></script>
 
-<div class="center-this-div">
-    <div id="index-container">
-        <div class="group" style="text-align: center">
-            <h1 >Artist<br>Palace</h1>
-        </div>
-        
-        <div class="group">
-            <a href="/home/artists"><button class="flat-button" style="width: 150px">Artists List</button></a>
-            <br>
-            <br>
-            <a href="/home/adminpanel"><button class="flat-button" style="width: 150px">Admin Panel</button></a>
-            <br>
-            <br>
-            <a href="/home/suggestartists"><button class="flat-button" style="width: 150px">Suggest Artist</button></a>
+<div style="padding-top: 100px">
+    <div class="center-this-div">
+        <div id="index-container">
+            <div class="group" style="text-align: center">
+                <h1 >Artist<br>Palace</h1>
+            </div>
+            
+            <div class="group">
+                <a href="/home/artists"><button class="flat-button" style="width: 150px">Artists List</button></a>
+                <br>
+                <br>
+                <a href="/home/suggestartists"><button class="flat-button" style="width: 150px">Suggest Artist</button></a>
+                <br>
+                <br>
+                <a href="/home/adminpanel"><button class="flat-button" style="width: 150px">Login</button></a>
+            </div>
         </div>
     </div>
+
+    @*<div class="center-this-div" style="padding-top: 35px">
+        <div id="index-container" style="height: 200px; width: 700px">
+            <div class="group" style="text-align: center;">
+                <div class="language" style="padding: 10px;">
+                    <span class="flag-icon flag-icon-ru" style="margin: 5px; cursor: pointer;" onclick="changeTextRU()"></span>
+                    <span class="flag-icon flag-icon-um" style="margin: 5px; cursor: pointer;"  onclick="changeTextEN()"></span>
+                </div>
+                <p id="info-text" style="margin-top: 5px">A small project aimed at compiling a constantly updated list of artists from all over the world! It doesn't matter who you are, a small, aspiring artist or a professional with a capital letter, a pixel lover or a connoisseur of digital art, looking for inspiration from other artists or want to find new employees for your company who will promote art to the masses.</p>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="center-this-div" style="padding-top: 50px">
+        <p>Latest suggested artists:</p>
+    </div>
+    <div id="artists-table-container">
+        <table style="zoom: 115%">
+            <tr>
+                <th class="fill-th-small" style="cursor: default;"><span class="material-icons">account_box</span></th>
+                <th class="fill-th" style="cursor: default;">Tag</th>
+                <th class="fill-th" style="cursor: default;">Type</th>
+            </tr>
+            @foreach (var artist in Model)
+            {
+                <tr>
+                    <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
+                    @*<td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
+                    <td>@@@artist.TwitterTag</td>
+                    <td class="center-this">@artist.Type</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="center-this-div" style="padding-top: 10px">
+        <p>and other...</p>
+</div>
 </div>

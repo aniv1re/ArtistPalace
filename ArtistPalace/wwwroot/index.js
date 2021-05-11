@@ -1,4 +1,12 @@
-﻿/*function openSearch() {
+﻿/*function changeTextRU(){
+	document.getElementById("info-text").innerText = "Небольшой проект, целью которого являетя составление постоянно обновляющегося списка художников со всего мира! Не важно кто ты, маленький, начинающий артист или проффессионал с большой буквы, любитель пикселей или ценитель цифрового искусства, ищешь вдохновения в других художниках или хочешь найти новых работников для своей компании, которые будут продвигать искусство в массы.";
+}
+
+function changeTextEN(){
+	document.getElementById("info-text").innerText = "A small project aimed at compiling a constantly updated list of artists from all over the world! It doesn't matter who you are, a small, aspiring artist or a professional with a capital letter, a pixel lover or a connoisseur of digital art, looking for inspiration from other artists or want to find new employees for your company who will promote art to the masses.";
+}*/
+
+/*function openSearch() {
 	if (document.getElementById("search-container").classList.contains("hidden") === false) {
 		document.getElementById("search-container").classList.add("hidden");
 		document.getElementById("search-container").classList.remove("show");
