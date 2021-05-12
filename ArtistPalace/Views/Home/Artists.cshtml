@@ -89,7 +89,7 @@
                     {
                         <div class="tooltip">
                             <a href="@artist.TwitterLink"><span class="material-icons" style="padding-right: 0px; padding-left: 2px">attach_money</span></a>
-                            @if (@artist.PricePerHour == null)
+                            @if (@artist.PricePerHour == 0)
                             {
                                 <span class="tooltiptext">Accept commissions<br></span>
                             }
@@ -100,7 +100,7 @@
                         </div>
                     }
                 </td>
-                <td><a href="@artist.TwitterLink"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
+                <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
                 @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
                 <td>@artist.Nickname</td>
                 <td>@@@artist.TwitterTag</td>
@@ -125,6 +125,14 @@
                 @if (artist.Country == "Russia")
                 {
                     <td class="center-this"><span class="flag-icon flag-icon-ru"></span>@artist.Country</td>
+                }
+                else if (artist.Country == "Philippines")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-ph"></span>@artist.Country</td>
+                }
+                else if (artist.Country == "Japan")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-jp"></span>@artist.Country</td>
                 }
                 else
                 {

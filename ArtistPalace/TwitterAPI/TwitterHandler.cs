@@ -37,8 +37,8 @@ namespace ArtistPalace.TwitterApi
 
             Artist newArtist = new Artist()
             {
-                Nickname = user.ScreenName,
-                TwitterTag = user.Name,
+                Nickname = user.Name,
+                TwitterTag = user.ScreenName,
                 FollowersCount = user.FollowersCount,
                 Country = user.Location
             };

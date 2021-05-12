@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtistPalace.Data;
@@ -36,6 +37,37 @@ namespace ArtistPalace.Controllers
                 var suggestArtists = connection.Query<SuggestArtists>("select top 5 * from SuggestArtists order by Id desc ").ToList();
                 return View(suggestArtists);
             }
+        }
+        
+        public IActionResult Reject(string tag)
+        {
+            return View("AdminPanel");
+        }
+
+        public IActionResult Accept(string _tag, string _type, string _acceptCommissions, string _pricePerHour, string _country)
+        {
+            var user = TwitterHandler.GetInfo(_tag).Result;
+            
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                connection.Execute(
+                    "exec AddToArtists @twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour",
+                    new
+                    {
+                        twitterLink = "https://twitter.com/" + user.TwitterTag,
+                        nickname = user.Nickname,
+                        followersCount = user.FollowersCount,
+                        country = (String.IsNullOrWhiteSpace(user.Country) ? _country : user.Country),
+                        rank = GetRank(Convert.ToInt32(user.FollowersCount)),
+                        twitterTag = _tag,
+                        type = _type,
+                        acceptCommissions = _acceptCommissions == "false" ? false : true,
+                        pricePerHour = _pricePerHour,
+                    });
+                connection.Execute("exec UpdateAcceptedSuggestArtist @twitterTag", new {twitterTag = _tag});
+            }
+            
+            return Redirect("/Home/AdminPanel");
         }
 
         [HttpGet]
@@ -109,7 +141,7 @@ namespace ArtistPalace.Controllers
         {
             using (var connection = _connectionFactory.CreateConnection())
             {
-                var suggestArtists = connection.Query<SuggestArtists>("select * from SuggestArtists").ToList();
+                var suggestArtists = connection.Query<SuggestArtists>("select * from SuggestArtists order by IsAccepted asc").ToList();
                 return View(suggestArtists);
             }
         }
@@ -188,6 +220,28 @@ namespace ArtistPalace.Controllers
             var sha = SHA256.Create();
             var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Encoding.UTF8.GetString(bytes);
+        }
+
+        private string GetRank(int followersCount)
+        {
+            if (followersCount > 74999)
+            {
+                return "S";
+            }
+            else if (followersCount > 24999)
+            {
+                return "A";
+            }
+            else if (followersCount > 1000)
+            {
+                return "B";
+            }
+            else if (followersCount < 1000)
+            {
+                return "C";
+            }
+
+            return null;
         }
     }
 }
