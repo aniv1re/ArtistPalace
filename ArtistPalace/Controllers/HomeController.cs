@@ -39,9 +39,13 @@ namespace ArtistPalace.Controllers
             }
         }
         
-        public IActionResult Reject(string tag)
+        public IActionResult Reject(string _tag)
         {
-            return View("AdminPanel");
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                connection.Execute("exec UpdateRejectedSuggestArtist @twitterTag", new {twitterTag = _tag});
+            }
+            return Redirect("/Home/AdminPanel");
         }
 
         public IActionResult Accept(string _tag, string _type, string _acceptCommissions, string _pricePerHour, string _country)
@@ -57,7 +61,7 @@ namespace ArtistPalace.Controllers
                         twitterLink = "https://twitter.com/" + user.TwitterTag,
                         nickname = user.Nickname,
                         followersCount = user.FollowersCount,
-                        country = (String.IsNullOrWhiteSpace(user.Country) ? _country : user.Country),
+                        country = _country,
                         rank = GetRank(Convert.ToInt32(user.FollowersCount)),
                         twitterTag = _tag,
                         type = _type,
@@ -82,14 +86,15 @@ namespace ArtistPalace.Controllers
             using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Execute(
-                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted",
+                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected",
                     new
                     {
                         twitterTag = suggestArtistsQuery.Tag,
                         type = suggestArtistsQuery.Type,
                         acceptCommissions = suggestArtistsQuery.AcceptCommissions == "No" ? false : true,
                         pricePerHour = suggestArtistsQuery.PricePerHour,
-                        isAccepted = false
+                        isAccepted = false,
+                        isRejected = false,
                     });
             }
 
@@ -212,7 +217,7 @@ namespace ArtistPalace.Controllers
                     new ClaimsPrincipal(identity));
             }
 
-            return View("Index");
+            return Redirect("/Home/AdminPanel");
         }
         
         private string HashPassword(string password)

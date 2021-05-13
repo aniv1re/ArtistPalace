@@ -40,7 +40,6 @@ namespace ArtistPalace.TwitterApi
                 Nickname = user.Name,
                 TwitterTag = user.ScreenName,
                 FollowersCount = user.FollowersCount,
-                Country = user.Location
             };
 
             return newArtist;

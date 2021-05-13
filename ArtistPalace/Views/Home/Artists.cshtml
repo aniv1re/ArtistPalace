@@ -39,6 +39,9 @@
             <select id="search-by-country" name="country">
                 <option>All</option>
                 <option>Russia</option>
+                <option>Philippines</option>
+                <option>Japan</option>
+                <option>Finland</option>
             </select>
         </div>
     
@@ -134,6 +137,10 @@
                 {
                     <td class="center-this"><span class="flag-icon flag-icon-jp"></span>@artist.Country</td>
                 }
+                else if (artist.Country == "Finland")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-fi"></span>@artist.Country</td>
+                }
                 else
                 {
                     <td class="center-this">@artist.Country</td>
@@ -143,8 +150,8 @@
     </table>
 </div>
 
-@*<div id="footer">
+<div id="footer">
     <div class="footer-info">
-        <p>Suggestions, incorrect information about artist and other: anivire.work@gmail.com<br>List is updated every week.</p>
+        <p>Suggestions, incorrect information about artist and other: <a href="mailto:anivire.work@gmail.com">anivire.work@gmail.com</a> or <a href="https://github.com/aniv1re/ArtistPalace-tracker/issues">GitHub</a></p>
     </div>
-</div>*@
+</div>

@@ -56,7 +56,7 @@
                 {
                     <td class="center-this">No</td>
                 }
-                @if (artist.IsAccepted == false)
+                @if (artist.IsAccepted == false && artist.IsRejected == false)
                 {
                     <td>
                         <div class="buttons">
@@ -70,11 +70,15 @@
                             </form>
                             <br>
                             <form asp-action="Reject">
-                                <input type='hidden' value='@artist.TwitterTag' name='tag'/>
+                                <input type='hidden' value='@artist.TwitterTag' name='_tag'/>
                                 <button class="decline-button" style="width: 50px">✘</button>
                             </form>
                         </div>
                     </td>
+                }
+                else if (artist.IsRejected == true)
+                {
+                    <td class="center-this">Rejected</td>
                 }
                 else
                 {
