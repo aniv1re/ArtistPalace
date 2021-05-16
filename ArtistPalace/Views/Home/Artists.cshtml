@@ -1,5 +1,5 @@
 ﻿@using ArtistPalace.TwitterApi
-@model List<Artist>
+@model ArtistsArtworkViewModel
 
 <link rel="stylesheet" href="~/table.css" />
 <link rel="stylesheet" href="~/index.css" />
@@ -76,6 +76,7 @@
     <table class="table sortable">
         <tr>
             <th class="fill-th-small"><span class="material-icons">payments</span></th>
+            <th class="fill-th-small"><span class="material-icons">image</span></th>
             <th class="fill-th-small"><span class="material-icons">account_box</span></th>
             <th class="fill-th">Artist</th>
             <th class="fill-th">Tag</th>
@@ -84,12 +85,12 @@
             <th class="fill-th">Type</th>
             <th class="fill-th">Country</th>
         </tr>
-        @foreach (var artist in Model)
+        @foreach (var artist in Model.Artists)
         {
             <tr>
                 <td id="commission-container">
                     @if (@artist.AcceptCommissions == true)
-                    {
+                    { 
                         <div class="tooltip">
                             <a href="@artist.TwitterLink"><span class="material-icons" style="padding-right: 0px; padding-left: 2px">attach_money</span></a>
                             @if (@artist.PricePerHour == 0)
@@ -103,26 +104,47 @@
                         </div>
                     }
                 </td>
+                @{
+                    bool isChecked = false;
+                }
+                @foreach (var artwork in Model.Artworks)
+                {
+                    if (!String.IsNullOrWhiteSpace(artwork.ArtworkLink) && artwork.ArtistId == artist.Id)
+                    {
+                        <td><a href="@Model.Artworks.Single(a => a.ArtworkLink != null && a.ArtistId == artist.Id).ArtworkLink"><span class="material-icons" style="cursor: pointer;">image</span></a></td>
+                        isChecked = true;
+                        break;
+                        
+                    }
+                }
+                @if (isChecked == false)
+                {
+                    <td></td>
+                }
+                
+
                 <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
                 @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
                 <td>@artist.Nickname</td>
                 <td>@@@artist.TwitterTag</td>
-                <td class="center-this"> @if (@artist.Rank == "C")
-                                         {
-                                             <span style="color: #845EC2; font-weight: bold;">@artist.Rank</span>
-                                         }
-                                         else if (@artist.Rank == "B")
-                                         {
-                                             <span style="color: #FF6F91; font-weight: bold;">@artist.Rank</span>
-                                         }
-                                         else if (@artist.Rank == "A")
-                                         {
-                                             <span style="color: #FF9671; font-weight: bold;">@artist.Rank</span>
-                                         }
-                                         else if (@artist.Rank == "S")
-                                         {
-                                             <span style="color : #FFC75F; font-weight: bold;">@artist.Rank</span>
-                                         }</td>
+                <td class="center-this">
+                    @if (@artist.Rank == "C")
+                    {
+                        <span style="color: #845EC2; font-weight: bold;">@artist.Rank</span>
+                    }
+                    else if (@artist.Rank == "B")
+                    {
+                        <span style="color: #FF6F91; font-weight: bold;">@artist.Rank</span>
+                    }
+                    else if (@artist.Rank == "A")
+                    {
+                        <span style="color: #FF9671; font-weight: bold;">@artist.Rank</span>
+                    }
+                    else if (@artist.Rank == "S")
+                    {
+                        <span style="color : #FFC75F; font-weight: bold;">@artist.Rank</span>
+                    }
+                </td>
                 <td class="center-this">@artist.FollowersCount</td>
                 <td class="center-this">@artist.Type</td>
                 @if (artist.Country == "Russia")

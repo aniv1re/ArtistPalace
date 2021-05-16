@@ -15,7 +15,11 @@ create procedure AddToArtists
 	@pricePerHour int
 )
 as
-insert into Artists(TwitterLink, Nickname, FollowersCount, Country, TwitterTag, Type, AcceptCommissions, PricePerHour)
-values (@twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour)
-
-update SuggestArtists set IsAccepted = 1 where TwitterTag = '@twitterTag'
+begin
+	insert into Artists(TwitterLink, Nickname, FollowersCount, Country, Rank, TwitterTag, Type, AcceptCommissions, PricePerHour)
+	values (@twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour)
+end
+begin
+	insert into ArtistArtworks(ArtworkLink, ArtistId)
+	values (@artworkLink, @@IDENTITY)
+end

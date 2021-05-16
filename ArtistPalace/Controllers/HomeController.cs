@@ -48,14 +48,14 @@ namespace ArtistPalace.Controllers
             return Redirect("/Home/AdminPanel");
         }
 
-        public IActionResult Accept(string _tag, string _type, string _acceptCommissions, string _pricePerHour, string _country)
+        public IActionResult Accept(string _tag, string _type, string _acceptCommissions, string _pricePerHour, string _country, string _artworkLink)
         {
             var user = TwitterHandler.GetInfo(_tag).Result;
             
             using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Execute(
-                    "exec AddToArtists @twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour",
+                    "exec AddToArtists @twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour, @artworkLink",
                     new
                     {
                         twitterLink = "https://twitter.com/" + user.TwitterTag,
@@ -67,9 +67,11 @@ namespace ArtistPalace.Controllers
                         type = _type,
                         acceptCommissions = _acceptCommissions == "false" ? false : true,
                         pricePerHour = _pricePerHour,
+                        artworkLink = _artworkLink
                     });
                 connection.Execute("exec UpdateAcceptedSuggestArtist @twitterTag", new {twitterTag = _tag});
             }
+
             
             return Redirect("/Home/AdminPanel");
         }
@@ -86,7 +88,7 @@ namespace ArtistPalace.Controllers
             using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Execute(
-                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected",
+                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected, @artworkLink",
                     new
                     {
                         twitterTag = suggestArtistsQuery.Tag,
@@ -95,6 +97,7 @@ namespace ArtistPalace.Controllers
                         pricePerHour = suggestArtistsQuery.PricePerHour,
                         isAccepted = false,
                         isRejected = false,
+                        artworkLink = suggestArtistsQuery.ArtworkLink
                     });
             }
 
@@ -136,8 +139,10 @@ namespace ArtistPalace.Controllers
                 _logger.Log(LogLevel.Information, template.RawSql.ToString());
 
                 var artists = connection.Query<Artist>(template.RawSql.ToString() + "order by FollowersCount desc").ToList();
+                var artworks = connection.Query<ArtistArtworks>("select * from GetArtistsArtworks()");
 
-                return View(artists);
+                var a = new ArtistsArtworkViewModel {Artists = artists, Artworks = artworks};
+                return View(a);
             }
         }
 
@@ -147,6 +152,7 @@ namespace ArtistPalace.Controllers
             using (var connection = _connectionFactory.CreateConnection())
             {
                 var suggestArtists = connection.Query<SuggestArtists>("select * from SuggestArtists order by IsAccepted asc").ToList();
+                
                 return View(suggestArtists);
             }
         }

@@ -4,5 +4,6 @@ create table SuggestArtists (
 	Type varchar(150) not null,
 	AcceptCommissions bit,
 	PricePerHour int,
-	IsAccepted bit
+	IsAccepted bit,
+	IsRejected bit
 );
