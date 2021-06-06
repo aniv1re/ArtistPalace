@@ -1,5 +1,5 @@
 ﻿@using ArtistPalace.TwitterApi
-@model ArtistsArtworkViewModel
+@model List<Artist>
 
 <link rel="stylesheet" href="~/table.css" />
 <link rel="stylesheet" href="~/index.css" />
@@ -13,9 +13,9 @@
 <script src="~/index.js" asp-append-version="true"></script>
 
 <div id="navbar">
-    <a href="/home/index"><button id="add-artist-button"><span class="material-icons">arrow_back</span> Home</button></a>
+    <a href="/home"><button id="add-artist-button"><span class="material-icons">arrow_back</span> Home</button></a>
     <button id="search-button"><span class="material-icons">person_search</span> Search Artist</button>
-    <a href="/home/suggestartists"><button id="add-artist-button"><span class="material-icons">person_add</span> Suggest Artist</button></a>
+    <a href="/suggestartists"><button id="add-artist-button"><span class="material-icons">person_add</span> Suggest Artist</button></a>
 </div>
 
 <div id="search-container">
@@ -76,7 +76,6 @@
     <table class="table sortable">
         <tr>
             <th class="fill-th-small"><span class="material-icons">payments</span></th>
-            <th class="fill-th-small"><span class="material-icons">image</span></th>
             <th class="fill-th-small"><span class="material-icons">account_box</span></th>
             <th class="fill-th">Artist</th>
             <th class="fill-th">Tag</th>
@@ -85,7 +84,7 @@
             <th class="fill-th">Type</th>
             <th class="fill-th">Country</th>
         </tr>
-        @foreach (var artist in Model.Artists)
+        @foreach (var artist in Model)
         {
             <tr>
                 <td id="commission-container">
@@ -104,24 +103,6 @@
                         </div>
                     }
                 </td>
-                @{
-                    bool isChecked = false;
-                }
-                @foreach (var artwork in Model.Artworks)
-                {
-                    if (!String.IsNullOrWhiteSpace(artwork.ArtworkLink) && artwork.ArtistId == artist.Id)
-                    {
-                        <td><a href="@Model.Artworks.Single(a => a.ArtworkLink != null && a.ArtistId == artist.Id).ArtworkLink"><span class="material-icons" style="cursor: pointer;">image</span></a></td>
-                        isChecked = true;
-                        break;
-                        
-                    }
-                }
-                @if (isChecked == false)
-                {
-                    <td></td>
-                }
-                
 
                 <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
                 @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@

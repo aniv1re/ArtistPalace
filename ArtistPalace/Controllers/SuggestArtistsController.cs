@@ -1,50 +1,58 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using ArtistPalace.Data;
 using Microsoft.AspNetCore.Mvc;
 using ArtistPalace.Models;
 using Dapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using ArtistPalace.TwitterApi;
-using ArtistPalace.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ArtistPalace.Controllers
 {
-    public class HomeController : Controller
+    public class SuggestArtistsController : Controller
     {
         private readonly ConnectionFactory _connectionFactory;
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<SuggestArtistsController> _logger;
 
-        public HomeController(ConnectionFactory connection, ILogger<HomeController> logger)
+        public SuggestArtistsController(ConnectionFactory connection, ILogger<SuggestArtistsController> logger)
         {
             _connectionFactory = connection;
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index([FromForm] SuggestArtistsQuery suggestArtistsQuery = null)
         {
             using (var connection = _connectionFactory.CreateConnection())
             {
-                var suggestArtists = connection.Query<SuggestArtists>("select top 5 * from SuggestArtists order by Id desc ").ToList();
-                return View(suggestArtists);
+                connection.Execute(
+                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected, @artworkLink",
+                    new
+                    {
+                        twitterTag = suggestArtistsQuery.Tag,
+                        type = suggestArtistsQuery.Type,
+                        acceptCommissions = suggestArtistsQuery.AcceptCommissions == "No" ? false : true,
+                        pricePerHour = suggestArtistsQuery.PricePerHour,
+                        isAccepted = false,
+                        isRejected = false,
+                    });
             }
+
+            return View();
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
-
+        
         private string GetRank(int followersCount)
         {
             if (followersCount > 74999)

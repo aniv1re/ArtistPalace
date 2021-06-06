@@ -6,6 +6,5 @@
         public string Type { get; set; }
         public string AcceptCommissions { get; set; }
         public string PricePerHour { get; set; }
-        public string ArtworkLink { get; set; }
     }
 }

@@ -14,9 +14,9 @@
 <script src="~/index.js" asp-append-version="true"></script>
 
 <div id="navbar">
-    <a href="/home/index"><button id="add-artist-button"><span class="material-icons">arrow_back</span> Home</button></a>
-    <a href="/home/adminpanel"><button id="add-artist-button"><span class="material-icons">admin_panel_settings</span> Admin Panel</button></a>
-    <a href="/home/artists"><button id="add-artist-button"><span class="material-icons">people</span> Artists List</button></a>
+    <a href="/home"><button id="add-artist-button"><span class="material-icons">arrow_back</span> Home</button></a>
+    <a href="/adminpanel"><button id="add-artist-button"><span class="material-icons">admin_panel_settings</span> Admin Panel</button></a>
+    <a href="/artists"><button id="add-artist-button"><span class="material-icons">people</span> Artists List</button></a>
 </div>
 
 <div class="center-this-div" style="text-align: center">
@@ -26,7 +26,6 @@
 <div id="artists-table-container">
     <table>
         <tr>
-            <th class="fill-th-small"><span class="material-icons">image</span></th>
             <th class="fill-th-small"><span class="material-icons">account_box</span></th>
             <th class="fill-th">Tag</th>
             <th class="fill-th">Type</th>
@@ -37,14 +36,6 @@
         @foreach (var artist in Model)
         {
             <tr>
-                @if (!String.IsNullOrWhiteSpace(artist.ArtworkLink))
-                {
-                    <td><a href="@artist.ArtworkLink"><span class="material-icons" style="cursor: pointer;">image</span></a></td>
-                }
-                else
-                {
-                    <td></td>
-                }
                 <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
                 @*<td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
                 <td>@@@artist.TwitterTag</td>
@@ -74,7 +65,6 @@
                                 <input type='hidden' value='@artist.Type' name='_type'/>
                                 <input type='hidden' value='@(artist.AcceptCommissions == true ? "true" : "false")' name='_acceptCommissions'/>
                                 <input type='hidden' value='@(artist.PricePerHour != null ? artist.PricePerHour : 0)' name='_pricePerHour'/>
-                                <input type='hidden' value='@artist.ArtworkLink' name='_artworkLink'/>
                                 <input type="text" value="" name="_country" placeholder="input country" style="background-color: #292b2f" width="100px"/>
                                 <button class="flat-button" style="width: 50px">✔</button>
                             </form>
