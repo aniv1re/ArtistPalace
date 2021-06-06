@@ -31,6 +31,15 @@ namespace ArtistPalace.TwitterApi
             return artist.ProfileImageUrl.ToString();
         }
 
+        public static async Task<int?> GetStats(int? currentFollowers, string tag)
+        {
+            var artist = await UserClient.Users.GetUserAsync(tag);
+
+            var growFollowersTrend = artist.FollowersCount;
+
+            return growFollowersTrend;
+        }
+
         public static async Task<Artist> GetInfo(string tag)
         {
             var user = await UserClient.Users.GetUserAsync(tag);
