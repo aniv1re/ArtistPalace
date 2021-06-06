@@ -164,8 +164,8 @@ namespace ArtistPalace.Controllers
         }
         
         // auth
-        
-        /*public IActionResult Register()
+        // used only form moderation
+        public IActionResult Register()
         {
             return View();
         }
@@ -184,7 +184,7 @@ namespace ArtistPalace.Controllers
             }
 
             return View();
-        }*/
+        }
         
         public IActionResult Login()
         {
