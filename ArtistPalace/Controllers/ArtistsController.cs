@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using ArtistPalace.Models;
 using Dapper;
 using Microsoft.Extensions.Logging;
+using ArtistPalace.TwitterApi;
+using Tweetinvi;
 
 namespace ArtistPalace.Controllers
 {
@@ -32,9 +34,9 @@ namespace ArtistPalace.Controllers
                     builder.Where($"Nickname Like '%{artistsQuery.NickName}%'");
                 }
 
-                if (!string.IsNullOrWhiteSpace(artistsQuery?.Country) && artistsQuery?.Country != "All")
+                if (!string.IsNullOrWhiteSpace(artistsQuery?.Lang) && artistsQuery?.Lang != "All")
                 {
-                    builder.Where($"Country = '{artistsQuery.Country}'");
+                    builder.Where($"Lang = '{artistsQuery.Lang}'");
                 }
 
                 if (!string.IsNullOrWhiteSpace(artistsQuery?.Type) && artistsQuery?.Type != "All")

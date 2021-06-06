@@ -39,20 +39,20 @@ namespace ArtistPalace.Controllers
             return Redirect("Index");
         }
 
-        public IActionResult Accept(string _tag, string _type, string _acceptCommissions, string _pricePerHour, string _country)
+        public IActionResult Accept(string _tag, string _type, string _acceptCommissions, string _pricePerHour, string _lang)
         {
             var user = TwitterHandler.GetInfo(_tag).Result;
 
             using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Execute(
-                    "exec AddToArtists @twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour",
+                    "exec AddToArtists @twitterLink, @nickname, @followersCount, @lang, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour",
                     new
                     {
                         twitterLink = "https://twitter.com/" + user.TwitterTag,
                         nickname = user.Nickname,
                         followersCount = user.FollowersCount,
-                        country = _country,
+                        lang = _lang,
                         rank = GetRank(Convert.ToInt32(user.FollowersCount)),
                         twitterTag = _tag,
                         type = _type,

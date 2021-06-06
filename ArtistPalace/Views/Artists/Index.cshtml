@@ -1,5 +1,4 @@
-﻿@using ArtistPalace.TwitterApi
-@model List<Artist>
+﻿@model List<Artist>
 
 <link rel="stylesheet" href="~/table.css" />
 <link rel="stylesheet" href="~/index.css" />
@@ -35,13 +34,12 @@
         </div>
     
         <div class="group">
-            <label for="search-by-country">Country:</label>
-            <select id="search-by-country" name="country">
+            <label for="search-by-country">Language:</label>
+            <select id="search-by-country" name="lang">
                 <option>All</option>
-                <option>Russia</option>
-                <option>Philippines</option>
-                <option>Japan</option>
-                <option>Finland</option>
+                <option>RU</option>
+                <option>EN</option>
+                <option>JP</option>
             </select>
         </div>
     
@@ -76,13 +74,13 @@
     <table class="table sortable">
         <tr>
             <th class="fill-th-small"><span class="material-icons">payments</span></th>
+            <th class="fill-th-small"><span class="material-icons">language</span></th>
             <th class="fill-th-small"><span class="material-icons">account_box</span></th>
             <th class="fill-th">Artist</th>
             <th class="fill-th">Tag</th>
             <th class="fill-th">Rank</th>
             <th class="fill-th">Followers</th>
             <th class="fill-th">Type</th>
-            <th class="fill-th">Country</th>
         </tr>
         @foreach (var artist in Model)
         {
@@ -91,7 +89,7 @@
                     @if (@artist.AcceptCommissions == true)
                     { 
                         <div class="tooltip">
-                            <a href="@artist.TwitterLink"><span class="material-icons" style="padding-right: 0px; padding-left: 2px">attach_money</span></a>
+                            <a href="https://twitter.com/@artist.TwitterTag"><span class="material-icons" style="padding-right: 0px; padding-left: 2px">attach_money</span></a>
                             @if (@artist.PricePerHour == 0)
                             {
                                 <span class="tooltiptext">Accept commissions<br></span>
@@ -104,8 +102,26 @@
                     }
                 </td>
 
+                @if (artist.Lang == "RU")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-ru"></td>
+                }
+                else if (artist.Lang == "EN")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-gb"></td>
+                }
+                else if (artist.Lang == "JP")
+                {
+                    <td class="center-this"><span class="flag-icon flag-icon-jp"></td>
+                }
+                else
+                {
+                    <td class="center-this">@artist.Lang</td>
+                }
+
                 <td><a href="https://twitter.com/@artist.TwitterTag"><img class="artist-avatar" src="//avatars.charlyx.dev/twitter?username=@artist.TwitterTag"></a></td>
-                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@await TwitterHandler.GetAvatar(artist.TwitterTag)"></a></td>*@
+                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@Component.InvokeAsync(nameof(GetAvatarViewComponent), artist)"></a></td>*@
+                @*<td><a href="@artist.TwitterLink"><img class="artist-avatar" src="@artist.TwitterPfp"></a></td>*@
                 <td>@artist.Nickname</td>
                 <td>@@@artist.TwitterTag</td>
                 <td class="center-this">
@@ -128,26 +144,6 @@
                 </td>
                 <td class="center-this">@artist.FollowersCount</td>
                 <td class="center-this">@artist.Type</td>
-                @if (artist.Country == "Russia")
-                {
-                    <td class="center-this"><span class="flag-icon flag-icon-ru"></span>@artist.Country</td>
-                }
-                else if (artist.Country == "Philippines")
-                {
-                    <td class="center-this"><span class="flag-icon flag-icon-ph"></span>@artist.Country</td>
-                }
-                else if (artist.Country == "Japan")
-                {
-                    <td class="center-this"><span class="flag-icon flag-icon-jp"></span>@artist.Country</td>
-                }
-                else if (artist.Country == "Finland")
-                {
-                    <td class="center-this"><span class="flag-icon flag-icon-fi"></span>@artist.Country</td>
-                }
-                else
-                {
-                    <td class="center-this">@artist.Country</td>
-                }
             </tr>
         }
     </table>

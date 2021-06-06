@@ -28,7 +28,7 @@ namespace ArtistPalace.TwitterApi
         public static async Task<string> GetAvatar(string tag)
         {
             var artist = await UserClient.Users.GetUserAsync(tag);
-            return artist.ProfileImageUrl;
+            return artist.ProfileImageUrl.ToString();
         }
 
         public static async Task<Artist> GetInfo(string tag)

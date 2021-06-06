@@ -22,11 +22,11 @@ namespace ArtistPalace
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+
             services.AddHttpContextAccessor();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(o => { o.LoginPath = new PathString("/Home/Login"); });
+                .AddCookie(o => { o.LoginPath = new PathString("/adminpanel/Login"); });
 
             services.AddSingleton<ConnectionFactory>();
         }
