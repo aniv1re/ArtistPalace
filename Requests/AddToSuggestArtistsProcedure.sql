@@ -9,9 +9,8 @@ create procedure AddToSuggestArtists
     @acceptCommissions bit,
     @pricePerHour int,
     @isAccepted bit,
-    @isRejected bit,
-    @artworkLink nvarchar(MAX)
+    @isRejected bit
 )
 as
-insert into SuggestArtists(TwitterTag, Type, AcceptCommissions, PricePerHour, IsAccepted, IsRejected, ArtworkLink)
-values (@twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected, @artworkLink)
+insert into SuggestArtists(TwitterTag, Type, AcceptCommissions, PricePerHour, IsAccepted, IsRejected)
+values (@twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected)

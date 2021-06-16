@@ -4,7 +4,7 @@ create table Artists (
 	TwitterTag nvarchar(150) NULL,
 	Nickname nvarchar(150) NULL,
 	FollowersCount int NULL,
-	Country nvarchar(150) NULL,
+	Lang nvarchar(150) NULL,
 	Rank nvarchar(150) NULL,
 	Type nvarchar(150) NULL,
 	AcceptCommissions bit NULL,

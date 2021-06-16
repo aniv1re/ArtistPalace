@@ -7,7 +7,7 @@ create procedure AddToArtists
 	@twitterLink varchar(150),
 	@nickname varchar(150),
 	@followersCount int,
-	@country varchar(150),
+	@lang varchar(150),
 	@rank varchar(150),
 	@twitterTag varchar(150),
 	@type varchar(150),
@@ -16,10 +16,6 @@ create procedure AddToArtists
 )
 as
 begin
-	insert into Artists(TwitterLink, Nickname, FollowersCount, Country, Rank, TwitterTag, Type, AcceptCommissions, PricePerHour)
-	values (@twitterLink, @nickname, @followersCount, @country, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour)
-end
-begin
-	insert into ArtistArtworks(ArtworkLink, ArtistId)
-	values (@artworkLink, @@IDENTITY)
+	insert into Artists(TwitterLink, Nickname, FollowersCount, Lang, Rank, TwitterTag, Type, AcceptCommissions, PricePerHour)
+	values (@twitterLink, @nickname, @followersCount, @Lang, @rank, @twitterTag, @type, @acceptCommissions, @pricePerHour)
 end
