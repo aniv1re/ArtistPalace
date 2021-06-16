@@ -32,7 +32,7 @@ namespace ArtistPalace.Controllers
             using (var connection = _connectionFactory.CreateConnection())
             {
                 connection.Execute(
-                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected, @artworkLink",
+                    "exec AddToSuggestArtists @twitterTag, @type, @acceptCommissions, @pricePerHour, @isAccepted, @isRejected",
                     new
                     {
                         twitterTag = suggestArtistsQuery.Tag,
